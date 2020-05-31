@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>How fast is the Kokosing flowing?</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="main.css" />
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <h3 id="flow"></h3>
+    <h4>ft3/s</h4>
+    <div class="wrapper">
+      <div class="wave"></div>
+    </div>
+
+    <script>
+      $.getJSON(
+        "https://waterservices.usgs.gov/nwis/iv/?format=json&sites=03136500&parameterCd=00060&siteStatus=all",
+        function (data) {
+          console.log(data.value.timeSeries[0].values[0].value[0].value);
+          $("body h3").text(data.value.timeSeries[0].values[0].value[0].value);
+        }
+      );
+
+      setInterval(function () {
+        random = Math.floor(Math.random() * 1 + 1);
+        var plusOrMinus = Math.random() < 0.15 ? -0.1 : 0.7;
+        random = random * plusOrMinus;
+        currentnumber = document.getElementById("flow");
+
+        document.getElementById("flow").innerHTML =
+          parseInt(currentnumber.innerHTML) + random;
+      }, 3000);
+    </script>
+  </body>
+</html>
